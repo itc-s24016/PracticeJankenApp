@@ -3,10 +3,7 @@ package com.example.practicejankenapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,39 +20,29 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             PracticeJankenAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Content()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PracticeJankenAppTheme {
-        Greeting("Android")
-    }
-}
 @Preview(
     showBackground = true,
     backgroundColor = 0xFF00FF00,
@@ -109,15 +96,15 @@ fun PlayerViewPreview2() {
 fun ComputerView(comHand: Int){
     when (comHand) {
         0 -> Image(
-            painter = painterResource(id = R.drawable.gu),
+            painter = painterResource(id = R.drawable.com_gu),
             contentDescription = null
         )
         1 -> Image(
-            painter = painterResource(id = R.drawable.choki),
+            painter = painterResource(id = R.drawable.com_choki),
             contentDescription = null
         )
         2 -> Image(
-            painter = painterResource(id = R.drawable.pa),
+            painter = painterResource(id = R.drawable.com_pa),
             contentDescription = null
         )
     }
@@ -158,6 +145,9 @@ fun ResultViewPreview2() {
 
 @Composable
 fun Content() {
+    var myHand by remember { mutableStateOf(-1) }
+    var comHand by remember { mutableStateOf(-1) }
+    var result by remember { mutableStateOf(-1) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -165,16 +155,30 @@ fun Content() {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ){
-            Button(onClick = {}){
+            Button(onClick = {
+                myHand = 0
+                comHand = (0..2).random()
+                result = (comHand - myHand +3) % 3
+            }){
                 Text("グー")
             }
-            Button(onClick = {}){
+            Button(onClick = {
+                myHand = 1
+                comHand = (0..2).random()
+                result = (comHand - myHand +3) % 3
+            }){
                 Text("チョキ")
             }
-            Button(onClick = {}){
+            Button(onClick = {
+                myHand = 2
+                comHand = (0..2).random()
+                result = (comHand - myHand +3) % 3}){
                 Text("パー")
             }
         }
+        PlayerView(hand = myHand)
+        ResultView(result = result)
+        ComputerView(comHand = comHand)
     }
 }
 
