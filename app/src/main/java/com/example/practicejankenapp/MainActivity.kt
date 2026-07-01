@@ -43,36 +43,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(
-    showBackground = true,
-    backgroundColor = 0xFF00FF00,
-    widthDp = 100, heightDp = 200
-)
-@Composable
-fun PlayerViewPreview0() {
-    PlayerView(0)
-}
-
-@Preview(
-    showBackground = true,
-    backgroundColor = 0xFF00FF00,
-    widthDp = 100, heightDp = 200
-)
-@Composable
-fun PlayerViewPreview1() {
-    PlayerView(1)
-}
-
-@Preview(
-    showBackground = true,
-    backgroundColor = 0xFF00FF00,
-    widthDp = 100, heightDp = 200
-)
-@Composable
-fun PlayerViewPreview2() {
-    PlayerView(2)
-}
-
 @Composable fun PlayerView(hand: Int){
     if (hand == 0){
         Image(
@@ -110,12 +80,6 @@ fun ComputerView(comHand: Int){
     }
 }
 
-@Preview
-@Composable
-fun ComputerViewPreview() {
-    ComputerView(0)
-}
-
 @Composable
 fun ResultView(result: Int){
     when (result) {
@@ -123,24 +87,6 @@ fun ResultView(result: Int){
         1 -> Text(text = "あなたの勝ちです", fontSize = 32.sp, color = Color(0xFFD81B60))
         2 -> Text(text = "コンピュータの勝ちです", fontSize = 32.sp, color = Color.Blue)
     }
-}
-
-@Preview
-@Composable
-fun ResultViewPreview0() {
-    ResultView(0)
-}
-
-@Preview
-@Composable
-fun ResultViewPreview1() {
-    ResultView(1)
-}
-
-@Preview
-@Composable
-fun ResultViewPreview2() {
-    ResultView(2)
 }
 
 @Composable
